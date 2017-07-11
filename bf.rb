@@ -1,5 +1,4 @@
-require_relative 'preprocessor'
-require_relative 'brain'
+require_relative 'interpreter'
 
 if ARGV[0]
 
@@ -10,14 +9,14 @@ if ARGV[0]
 
   if ARGV[1]
     input = File.read(ARGV[1])
-    b = Brain.new(code, input)
+    b = Interpreter.new(code, input)
   else
-    b = Brain.new(code)
+    b = Interpreter.new(code)
   end
 
   # Run interpreter
   puts "\n"
-  b.interpret
+  b.run
   puts "\n\n"
 
 else
