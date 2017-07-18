@@ -5,14 +5,6 @@ class ASTNode
   end
 end
 
-# Block node?
-# class Block < ASTNode
-#   def initialize(stmts, tok = nil)
-#     super tok
-#     @statements = stmts
-#   end
-# end
-
 # Operation node
 class OpNode < ASTNode
   attr_accessor :op
@@ -39,20 +31,29 @@ class BlockNode < ASTNode
   end
 end
 
+# Loop node
+class LoopNode < ASTNode
+  attr_accessor :list
+  def initialize(statements = [])
+    @list = statements
+  end
+
+  def to_s(indent = '')
+    "#{indent}<#{self.class}>\n".tap do |s|
+      @list.each { |n| s << n.to_s(indent + '  ') << "\n" }
+    end
+  end
+end
+
 # Integer node
-# class Int < ASTNode
-#   attr_accessor :value
+class IntNode < ASTNode
+  attr_accessor :value
 
-#   def initialize(val = '')
-#     @value = val
-#   end
-# end
+  def initialize(val = '')
+    @value = val
+  end
 
-# Symbol node
-# class Sym < ASTNode
-#   attr_accessor :value
-
-#   def initialize(val = '')
-#     @value = val
-#   end
-# end
+  def to_s(indent = '')
+    "#{indent}<#{self.class}: #{@value}>"
+  end
+end

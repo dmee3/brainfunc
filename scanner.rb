@@ -1,5 +1,3 @@
-require_relative 'token'
-
 # Scanner class to break code into tokens
 class Scanner
   def initialize(code = '')
@@ -38,6 +36,7 @@ class Scanner
 
   def generic_token
     val = @code.slice! 0
+    raise InvalidTokenError.new(val) unless TOKEN_TYPES.key? val
     Token.new TOKEN_TYPES[val], val
   end
 

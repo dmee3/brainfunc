@@ -15,9 +15,9 @@ module Preprocessor
         depth -= 1
       end
 
-      abort('Error: mismatched loop construct [...]') if depth < 0
+      raise LoopMismatchError if depth < 0
     end
 
-    abort('Error: mismatched loop construct [...]') if depth != 0
+    raise LoopMismatchError if depth != 0
   end
 end

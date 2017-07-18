@@ -1,14 +1,16 @@
 8 +            # add 8 to cell 0
 
 [              # loop until cell 0 is 0
-  > 4 +        # add 4 to cell 1
+  >            # move to cell 1
+  4 +          # add 4 to cell 1
 
   [            # loop until cell 1 is 0
     > ++       # add 2 to cell 2
     > +++      # add 3 to cell 3
     > +++      # add 3 to cell 4
     > +        # add 1 to cell 5
-    4 < -      # subtract 1 from cell 1
+    4 <        # move to cell 1
+    -          # subtract 1 from cell 1
   ]
 
   > +          # add 1 to cell 2

@@ -1,25 +1,38 @@
+require_relative 'ast'
+require_relative 'error'
 require_relative 'interpreter'
+require_relative 'parser'
+require_relative 'preprocessor'
+require_relative 'scanner'
+require_relative 'token'
 
 if ARGV[0]
 
+  puts "\n"
   code = File.read(ARGV[0])
 
-  Preprocessor.check code
-  Preprocessor.sanitize! code
+  begin
+    # Check code
+    Preprocessor.check code
+    Preprocessor.sanitize! code
 
-  if ARGV[1]
-    input = File.read(ARGV[1])
-    b = Interpreter.new(code, input)
-  else
-    b = Interpreter.new(code)
+    # Create interpreter
+    if ARGV[1]
+      input = File.read(ARGV[1])
+      b = Interpreter.new(code, input)
+    else
+      b = Interpreter.new(code)
+    end
+
+    # Run interpreter
+    b.run
+  rescue StandardError => e
+    puts e.message
   end
 
-  # Run interpreter
-  puts "\n"
-  b.run
-  puts "\n\n"
-
 else
-  puts "\nError: invalid arguments."
-  puts "Usage: ruby bf.rb <code-file> <input-file>\n\n"
+  puts 'Invalid arguments'
+  puts 'Usage: ruby bf.rb <code-file> <input-file>'
 end
+
+puts "\n"

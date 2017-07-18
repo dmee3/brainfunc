@@ -1,7 +1,3 @@
-require_relative 'ast'
-require_relative 'parser'
-require_relative 'preprocessor'
-
 # Brainfunc Interpreter
 class Interpreter
   SIZE = 30_000
